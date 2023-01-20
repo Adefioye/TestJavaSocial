@@ -1,5 +1,9 @@
 package com.koko.restful.service.restfulwebservice.users;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+
 import java.net.URI;
 import java.util.List;
 
@@ -30,13 +34,20 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/{id}")
-	public User getUser(@PathVariable int id) {
+	public EntityModel<User> getUser(@PathVariable int id) {
 		User user = userService.findOne(id);
 		
 		if (user == null) {
 			throw new UserNotFoundException(String.format("ID: %s", id));
 		}
-		return user;
+		
+		EntityModel<User> entityModel = EntityModel.of(user);
+		
+		WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).getAllUsers());
+		
+		entityModel.add(link.withRel("all-users"));
+		
+		return entityModel;
 	}
 	
 	@PostMapping("/users")
