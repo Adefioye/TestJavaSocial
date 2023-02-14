@@ -23,7 +23,7 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	
-	@Size(min=2, message="Name must be at least 2 charcters")
+	@Size(min=2, message="Name must be at least 2 characters")
 	@JsonProperty("user_name")
 	private String name;
 	

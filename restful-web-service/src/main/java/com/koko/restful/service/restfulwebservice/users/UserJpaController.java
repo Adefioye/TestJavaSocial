@@ -91,6 +91,9 @@ public class UserJpaController {
 		
 		Optional<User> user = userRepository.findById(id);
 		
+		if (user.isEmpty())
+			throw new UserNotFoundException(String.format("ID: %s", id));
+		
 		post.setUser(user.get());
 		
 		Post savedPost = postRepository.save(post);	
