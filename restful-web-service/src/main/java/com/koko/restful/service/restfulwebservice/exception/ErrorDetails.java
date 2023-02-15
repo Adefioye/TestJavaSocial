@@ -2,6 +2,7 @@ package com.koko.restful.service.restfulwebservice.exception;
 
 import java.time.LocalDateTime;
 
+// Error class
 public class ErrorDetails {
 	private LocalDateTime timeStamp;
 	private String message;
